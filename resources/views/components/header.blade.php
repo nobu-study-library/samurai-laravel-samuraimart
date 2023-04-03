@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light samuraimart-header-container shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="{{ url('/') }}">
-      {{ config('app.name', 'Laravel') }}
+      <img src="{{ asset('img/logo.jpeg') }}">
     </a>
     <form class="row g-1">
       <div class="col-auto">
