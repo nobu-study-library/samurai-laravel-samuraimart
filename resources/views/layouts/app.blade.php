@@ -30,6 +30,9 @@
     <main class="mb-5 py-4">
       @yield('content')
     </main>
+
+    @component('components.footer')
+    @endcomponent
   </div>
 </body>
 
