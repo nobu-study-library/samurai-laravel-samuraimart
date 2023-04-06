@@ -15,8 +15,13 @@ class ProductController extends Controller
   public function index()
   {
     $productList = Product::paginate(15);
+    $categoryList = Category::all();
+    $majorCategoryNameList = Category::pluck('major_category_name')->unique();
 
-    return view('products.index', compact('productList'));
+    return view(
+      'products.index',
+      compact('productList', 'categoryList', 'majorCategoryNameList')
+    );
   }
 
   /**
