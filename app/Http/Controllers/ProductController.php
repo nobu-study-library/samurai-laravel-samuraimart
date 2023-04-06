@@ -15,11 +15,11 @@ class ProductController extends Controller
   {
     $productList = Product::paginate(15);
     $categoryList = Category::all();
-    $majorCategoryName = Category::pluck('major_category_name')->uniqid();
+    $majorCategoryNameList = Category::pluck('major_category_name')->unique();
 
     return view(
       'products.index',
-      compact('productList', 'categoryList', 'majorCategoryName')
+      compact('productList', 'categoryList', 'majorCategoryNameList')
     );
   }
 

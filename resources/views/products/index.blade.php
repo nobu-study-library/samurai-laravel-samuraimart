@@ -2,6 +2,14 @@
 
 @section('content')
   <div class="row">
+    <div class="col-2">
+      @component('components.sidebar', [
+          'categoryList' => $categoryList,
+          'majorCategoryNameList' => $majorCategoryNameList,
+      ])
+      @endcomponent
+    </div>
+
     <div class="col-9">
       <div class="container mt-4">
         <div class="row w-100">
@@ -22,7 +30,7 @@
           @endforeach
         </div>
       </div>
-      {{ $products->links() }}
+      {{ $productList->links() }}
     </div>
   </div>
 @endsection
