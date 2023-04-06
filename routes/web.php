@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,10 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
   return view('welcome');
 });
+
+Route::post('reviews', [ReviewController::class, 'store'])->name(
+  'reviews.store'
+);
 
 Route::resource('products', ProductController::class)->middleware([
   'auth',
