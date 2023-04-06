@@ -24,6 +24,11 @@ Route::post('reviews', [ReviewController::class, 'store'])->name(
   'reviews.store'
 );
 
+Route::get('products/{product}/favorite', [
+  ProductController::class,
+  'favorite',
+])->name('products.favorite');
+
 Route::resource('products', ProductController::class)->middleware([
   'auth',
   'verified',
