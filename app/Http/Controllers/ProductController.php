@@ -12,15 +12,30 @@ class ProductController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index()
+  public function index(Request $request)
   {
-    $productList = Product::paginate(15);
+    if ($request->category !== null) {
+      $productList = Product::where('category_id', $request->category)
+        ->sortable()
+        ->paginate(15);
+      $totalCount = Product::where('category_id', $request->category)->count();
+      $category = Category::find($request->category);
+    } else {
+      $productList = Product::sortable()->paginate(15);
+      $totalCount = '';
+      $category = null;
+    }
     $categoryList = Category::all();
     $majorCategoryNameList = Category::pluck('major_category_name')->unique();
 
     return view(
       'products.index',
-      compact('productList', 'categoryList', 'majorCategoryNameList')
+      compact(
+        'productList',
+        'category',
+        'categoryList',
+        'majorCategoryNameList'
+      )
     );
   }
 
