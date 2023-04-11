@@ -181,6 +181,8 @@ label {
   line-height: normal;
   letter-spacing: normal;
   color: #191919;
+}
+
 .samuraimart-favorite-button {
   border-radius: 2px;
   border: solid 1px #0fbe9f;
@@ -189,4 +191,10 @@ label {
 
 .text-favorite {
   color: #0fbe9f;
+}
+
+.samuraimart-favorite-add-cart {
+  border-radius: 2px;
+  color: #ffffff;
+  background-color: #0fbe9f;
 }
