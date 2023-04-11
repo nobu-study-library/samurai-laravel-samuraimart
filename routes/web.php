@@ -25,6 +25,13 @@ Route::controller(UserController::class)->group(function () {
   Route::get('users/mypage', 'mypage')->name('mypage');
   Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
   Route::put('users/mypage', 'update')->name('mypage.update');
+  Route::get('users/mypage/password/edit', 'editPassword')->name(
+    'mypage.editPassword'
+  );
+  Route::put('users/mypage/password', 'updatePassword')->name(
+    'mypage.updatePassword'
+  );
+  Route::get('users/mypage/favorite', 'favorite')->name('mypage.favorite');
 });
 
 Route::post('reviews', [ReviewController::class, 'store'])->name(
