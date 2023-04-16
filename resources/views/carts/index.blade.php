@@ -30,10 +30,10 @@
           <div class="col-md-6 mt-4">
             <h3 class="mt-4">{{ $product->name }}</h3>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <h3 class="w-100 mt-4">{{ $product->qty }}</h3>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <h3 class="w-100 mt-4">¥{{ $product->qty * $product->price }}</h3>
           </div>
         @endforeach
@@ -52,6 +52,19 @@
           表示価格は税込みです
         </div>
       </div>
+
+      <form action="{{ route('carts.destroy') }}" method="post" class="d-flex justify-content-end mt-3">
+        @csrf
+        <input type="hidden" name="_method" value="delete">
+        <a href="{{ route('products.index') }}" class="btn samuraimart-favorite-button border-dark text-dark mr-3">
+          買い物を続ける
+        </a>
+        @if ($total > 0)
+          <button type="submit" class="btn samuraimart-submit-button">購入を確定する</button>
+        @else
+          <button type="submit" class="btn samuraimart-submit-button disabled">購入を確定する</button>
+        @endif
+      </form>
     </div>
   </div>
 @endsection
