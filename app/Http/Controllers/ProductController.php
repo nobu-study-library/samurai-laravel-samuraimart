@@ -25,8 +25,8 @@ class ProductController extends Controller
       $totalCount = '';
       $category = null;
     }
-    $categoryList = Category::all();
-    $majorCategoryNameList = Category::pluck('major_category_name')->unique();
+    $categories = Category::all();
+    $majorCategoryNames = Category::pluck('major_category_name')->unique();
 
     return view(
       'products.index',
