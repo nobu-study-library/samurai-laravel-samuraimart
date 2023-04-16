@@ -12,6 +12,7 @@
     "anayarojo/shoppingcart": "^4.2",
     "encore/laravel-admin": "^1.8",
     "guzzlehttp/guzzle": "^7.2",
+    "intervention/image": "^2.7",
     "kyslik/column-sortable": "^6.5",
     "laravel/framework": "^10.0",
     "laravel/sanctum": "^3.2",
