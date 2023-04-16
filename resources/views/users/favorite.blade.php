@@ -28,7 +28,15 @@
             </a>
           </div>
           <div class="col-md-3 d-flex align-items-center justify-content-end">
-            <button type="submit" class="btn samuraimart-favorite-add-cart">カートに入れる</button>
+            <form action="{{ route('carts.store') }}" method="post" class="align-items-end m-3">
+              @csrf
+              <input type="hidden" name="id" value="{{ App\Models\Product::find($fav->favoriteable_id)->id }}">
+              <input type="hidden" name="name" value="{{ App\Models\Product::find($fav->favoriteable_id)->name }}">
+              <input type="hidden" name="price" value="{{ App\Models\Product::find($fav->favoriteable_id)->price }}">
+              <input type="hidden" name="qty" value="1">
+              <input type="hidden" name="weight" value="0">
+              <button type="submit" class="btn samuraimart-favorite-add-cart">カートに入れる</button>
+            </form>
           </div>
         @endforeach
       </div>
