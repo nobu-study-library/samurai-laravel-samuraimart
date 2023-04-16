@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col-2">
       @component('components.sidebar', [
-          'categoryList' => $categoryList,
-          'majorCategoryNameList' => $majorCategoryNameList,
+          'categories' => $categories,
+          'majorCategoryNames' => $majorCategoryNames,
       ])
       @endcomponent
     </div>

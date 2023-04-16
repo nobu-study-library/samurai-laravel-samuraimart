@@ -30,12 +30,7 @@ class ProductController extends Controller
 
     return view(
       'products.index',
-      compact(
-        'productList',
-        'category',
-        'categoryList',
-        'majorCategoryNameList'
-      )
+      compact('productList', 'category', 'categories', 'majorCategoryNames')
     );
   }
 
