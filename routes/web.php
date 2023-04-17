@@ -38,6 +38,7 @@ Route::controller(UserController::class)->group(function () {
     'mypage.updatePassword'
   );
   Route::get('users/mypage/favorite', 'favorite')->name('mypage.favorite');
+  Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
 });
 
 Route::post('reviews', [ReviewController::class, 'store'])->name(
