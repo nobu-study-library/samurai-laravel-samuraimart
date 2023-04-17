@@ -4,7 +4,11 @@
   <div class="d-flex justify-content-center">
     <div class="row w-75">
       <div class="col-5 offset-1">
-        <img src="{{ asset('img/dummy.png') }}" class="w-100 img-fluid">
+        @if ($product->image)
+          <img src="{{ asset($product->image) }}" class="w-100 img-fluid">
+        @else
+          <img src="{{ asset('img/dummy.png') }}" class="w-100 img-fluid">
+        @endif
       </div>
       <div class="col">
         <div class="d-flex flex-column">
