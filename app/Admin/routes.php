@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Router;
 use App\Admin\Controllers\CategoryController;
+use App\Admin\Controllers\ProductController;
 
 Admin::routes();
 
@@ -15,5 +16,6 @@ Route::group(
   function (Router $router) {
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('categories', CategoryController::class);
+    $router->resource('products', ProductController::class);
   }
 );
