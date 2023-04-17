@@ -34,6 +34,7 @@ class ProductController extends AdminController
     $grid->column('category.name', __('Category Name'));
     $grid->column('image', __('Image'))->image();
     $grid->column('recommend_flag', __('Recommend Flag'));
+    $grid->column('carriage_flag', __('Carriage Flag'));
     $grid->column('created_at', __('Created at'))->sortable();
     $grid->column('updated_at', __('Updated at'))->sortable();
 
@@ -46,6 +47,9 @@ class ProductController extends AdminController
         ->multipleSelect(Category::all()->pluck('name', 'id'));
       $filter
         ->equal('recommend_flag', 'おすすめフラグ')
+        ->select(['0' => 'false', '1' => 'true']);
+      $filter
+        ->equal('carriage_flag', '送料フラグ')
         ->select(['0' => 'false', '1' => 'true']);
     });
 
@@ -69,6 +73,7 @@ class ProductController extends AdminController
     $show->field('category.name', __('Category Name'));
     $show->field('image', __('Image'))->image();
     $show->field('recommend_flag', __('Recommend Flag'));
+    $show->field('carriage_flag', __('Carriage Flag'));
     $show->field('created_at', __('Created at'))->sortable();
     $show->field('updated_at', __('Updated at'))->sortable();
 
@@ -92,6 +97,7 @@ class ProductController extends AdminController
       ->options(Category::all()->pluck('name', 'id'));
     $form->image('image', __('Image'));
     $form->switch('recommend_flag', __('Recommend Flag'));
+    $form->switch('carriage_flag', __('Carriage Flag'));
 
     return $form;
   }

@@ -16,12 +16,22 @@ class CartController extends Controller
   {
     $cart = Cart::instance(Auth::user()->id)->content();
     $total = 0;
+    $hasCarriageCost = false;
+    $carriageCost = 0;
 
     foreach ($cart as $c) {
       $total += $c->qty * $c->price;
+      if ($c->options->carriage) {
+        $hasCarriageCost = true;
+      }
     }
 
-    return view('carts.index', compact('cart', 'total'));
+    if ($hasCarriageCost) {
+      $total += env('CARRIAGE');
+      $carriageCost = env('CARRIAGE');
+    }
+
+    return view('carts.index', compact('cart', 'total', 'carriageCost'));
   }
 
   /**
@@ -37,6 +47,7 @@ class CartController extends Controller
       'weight' => $request->weight,
       'options' => [
         'image' => $request->image,
+        'carriage' => $request->carriage,
       ],
     ]);
     return to_route('products.show', $request->get('id'));
