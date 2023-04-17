@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MajorCategory extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  public function categories()
+  {
+    return $this->hasMany('App\Models\Category');
+  }
 }
