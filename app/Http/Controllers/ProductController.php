@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\MajorCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,17 +21,26 @@ class ProductController extends Controller
         ->paginate(15);
       $totalCount = Product::where('category_id', $request->category)->count();
       $category = Category::find($request->category);
+      $majorCategory = MajorCategory::find($category->major_category_id);
     } else {
       $productList = Product::sortable()->paginate(15);
       $totalCount = '';
       $category = null;
+      $majorCategory = null;
     }
     $categories = Category::all();
-    $majorCategoryNames = Category::pluck('major_category_name')->unique();
+    $majorCategories = MajorCategory::all();
 
     return view(
       'products.index',
-      compact('productList', 'category', 'categories', 'majorCategoryNames')
+      compact(
+        'productList',
+        'majorCategory',
+        'category',
+        'categories',
+        'majorCategories',
+        'totalCount'
+      )
     );
   }
 
