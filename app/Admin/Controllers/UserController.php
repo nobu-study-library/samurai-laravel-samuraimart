@@ -97,10 +97,10 @@ class UserController extends AdminController
     $form->switch('deleted_flag', __('Deleted flag'));
 
     $form->saving(function (Form $form) {
-      if ($form->password && $form->modal()->password != $form->password) {
+      if ($form->password && $form->model()->password != $form->password) {
         $form->password = bcrypt($form->password);
       } else {
-        $form->password = $form->modal()->password;
+        $form->password = $form->model()->password;
       }
     });
 
