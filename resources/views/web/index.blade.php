@@ -52,58 +52,25 @@
 
       <h1>新着商品</h1>
       <div class="row">
-        <div class="col-3">
-          <a href="#">
-            <img src="{{ asset('img/robot-vacuum-cleaner.jpg') }}" class="img-thumbnail">
-          </a>
-          <div class="row">
-            <div class="col-12">
-              <p class="samuraimart-product-label mt-2">
-                ロボット掃除機<br>
-                <label>¥55000</label>
-              </p>
+        @foreach ($recentlyProducts as $recentlyProduct)
+          <div class="col-3">
+            <a href="{{ route('products.show', $recentlyProduct) }}">
+              @if ($recentlyProduct->image !== '')
+                <img src="{{ asset($recentlyProduct->image) }}" class="img-thumbnail">
+              @else
+                <img src="{{ asset('img/dummy.png') }}" class="img-thumbnail">
+              @endif
+            </a>
+            <div class="row">
+              <div class="col-12">
+                <p class="samuraimart-product-label mt-2">
+                  {{ $recentlyProduct->name }}<br>
+                  <label>¥{{ $recentlyProduct->price }}</label>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-3">
-          <a href="#">
-            <img src="{{ asset('img/sofa.jpg') }}" class="img-thumbnail">
-          </a>
-          <div class="row">
-            <div class="col-12">
-              <p class="samuraimart-product-label mt-2">
-                3人掛けソファー<br>
-                <label>¥35000</label>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-          <a href="#">
-            <img src="{{ asset('img/cup.jpg') }}" class="img-thumbnail">
-          </a>
-          <div class="row">
-            <div class="col-12">
-              <p class="samuraimart-product-label mt-2">
-                コーヒーカップ<br>
-                <label>￥1000</labiel>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-3">
-          <a href="#">
-            <img src="{{ asset('img/cutlery.jpg') }}" class="img-thumbnail">
-          </a>
-          <div class="row">
-            <div class="col-12">
-              <p class="samuraimart-product-label mt-2">
-                食器 カトラリーセット1組<br>
-                <label>￥2000</label>
-              </p>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
