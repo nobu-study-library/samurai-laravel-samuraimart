@@ -101,6 +101,17 @@ class CartController extends Controller
           'buy_flag' => true,
           'updated_at' => date('Y/m/d H:i:s'),
         ]);
+
+      $pay_jp_secret = env('PAYJP_SECRET_KEY');
+      \Payjp\Payjp::setApiKey($pay_jp_secret);
+
+      $user = Auth::user();
+
+      $res = \Payjp\Charge::create([
+        'customer' => $user->token,
+        'amount' => $priceTotal,
+        'currency' => 'jpy',
+      ]);
     }
 
     Cart::instance(Auth::user()->id)->destroy();

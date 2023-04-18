@@ -45,8 +45,8 @@ Route::controller(UserController::class)->group(function () {
   Route::get('users/mypage/cart_history/{num}', 'cartHistoryShow')->name(
     'mypage.cartHistoryShow'
   );
-  Route::get('users/mypage/register_card', 'register_card')->name(
-    'mypage.register_card'
+  Route::get('users/mypage/register_card', 'registerCard')->name(
+    'mypage.registerCard'
   );
   Route::post('users/mypage/token', 'token')->name('mypage.token');
 });
