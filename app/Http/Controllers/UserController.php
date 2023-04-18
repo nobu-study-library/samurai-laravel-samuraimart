@@ -6,6 +6,10 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ShoppingCart;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -94,5 +98,53 @@ class UserController extends Controller
 
     Auth::logout();
     return redirect('/');
+  }
+
+  public function cartHistoryIndex(Request $request)
+  {
+    $page = $request->page != null ? $request->page : 1;
+    $userId = Auth::user()->id;
+    $billings = ShoppingCart::getCurrentUserOrders($userId);
+    $total = count($billings);
+    $billings = new LengthAwarePaginator(
+      array_slice($billings, ($page - 1) * 15, 15),
+      $total,
+      15,
+      $page,
+      [
+        'path' => $request->url(),
+      ]
+    );
+
+    return view('users.cartHistoryIndex', compact('billings', 'total'));
+  }
+
+  public function cartHistoryShow(Request $request)
+  {
+    $num = $request->num;
+    $userId = Auth::user()->id;
+    $cartInfo = DB::table('shoppingcart')
+      ->where('instance', $userId)
+      ->where('number', $num)
+      ->get()
+      ->first();
+    Cart::instance($userId)->restore($cartInfo->identifier);
+    $cartContents = Cart::content();
+    Cart::instance($userId)->store($cartInfo->identifier);
+    Cart::destroy();
+
+    DB::table('shoppingcart')
+      ->where('instance', $userId)
+      ->where('number', null)
+      ->update([
+        'code' => $cartInfo->code,
+        'number' => $num,
+        'price_total' => $cartInfo->price_total,
+        'qty' => $cartInfo->qty,
+        'buy_flag' => $cartInfo->buy_flag,
+        'updated_at' => $cartInfo->updated_at,
+      ]);
+
+    return view('users.cartHistoryShow', compact('cartContents', 'cartInfo'));
   }
 }

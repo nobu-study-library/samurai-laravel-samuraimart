@@ -39,6 +39,12 @@ Route::controller(UserController::class)->group(function () {
   );
   Route::get('users/mypage/favorite', 'favorite')->name('mypage.favorite');
   Route::delete('users/mypage/delete', 'destroy')->name('mypage.destroy');
+  Route::get('users/mypage/cart_history', 'cartHistoryIndex')->name(
+    'mypage.cartHistory'
+  );
+  Route::get('users/mypage/cart_history/{num}', 'cartHistoryShow')->name(
+    'mypage.cartHistoryShow'
+  );
 });
 
 Route::post('reviews', [ReviewController::class, 'store'])->name(
