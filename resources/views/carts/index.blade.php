@@ -57,15 +57,19 @@
         </div>
       </div>
 
+      <hr>
+
       <div class="offset-8 col-4">
         <div class="row">
-          <h2>合計</h2>
-        </div>
-        <div class="col-6">
-          <h2>¥{{ $total }}</h2>
-        </div>
-        <div class="col-12 d-flex-justify-content-end">
-          表示価格は税込みです
+          <div class="col-6">
+            <h2>合計</h2>
+          </div>
+          <div class="col-6">
+            <h2>¥{{ $total }}</h2>
+          </div>
+          <div class="col-12 d-flex-justify-content-end">
+            表示価格は税込みです
+          </div>
         </div>
       </div>
 

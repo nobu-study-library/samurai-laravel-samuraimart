@@ -58,18 +58,50 @@ class CartController extends Controller
    */
   public function destroy(Request $request)
   {
-    $userShoppingCarts = DB::table('shoppingcart')
+    $userShoppingCarts = DB::table('shoppingcart')->get();
+    $number = DB::table('shoppingcart')
       ->where('instance', Auth::user()->id)
-      ->get();
+      ->count();
+
     $count = $userShoppingCarts->count();
 
     $count += 1;
-    Cart::instance(Auth::user()->id)->store($count);
+    $number += 1;
+    $cart = Cart::instance(Auth::user()->id)->content();
 
-    DB::table('shoppingcart')
-      ->where('instance', Auth::user()->id)
-      ->where('number', null)
-      ->update(['number' => $count, 'buy_flag' => true]);
+    $priceTotal = 0;
+    $qtyTotal = 0;
+    $hasCarriageCost = false;
+
+    foreach ($cart as $c) {
+      $priceTotal += $c->qty * $c->price;
+      $qtyTotal += $c->qty;
+      if ($c->options->carriage) {
+        $hasCarriageCost = true;
+      }
+
+      if ($hasCarriageCost) {
+        $priceTotal += env('CARRIAGE');
+      }
+
+      Cart::instance(Auth::user()->id)->store($count);
+
+      DB::table('shoppingcart')
+        ->where('instance', Auth::user()->id)
+        ->where('number', null)
+        ->update([
+          'code' => substr(
+            str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz'),
+            0,
+            10
+          ),
+          'number' => $number,
+          'price_total' => $priceTotal,
+          'qty' => $qtyTotal,
+          'buy_flag' => true,
+          'updated_at' => date('Y/m/d H:i:s'),
+        ]);
+    }
 
     Cart::instance(Auth::user()->id)->destroy();
 
