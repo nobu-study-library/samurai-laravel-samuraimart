@@ -6,7 +6,8 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\ShoppingCart;
+use Illuminate\Pagination\LengthAwarePaginator;
 class UserController extends Controller
 {
   public function mypage()
@@ -94,5 +95,24 @@ class UserController extends Controller
 
     Auth::logout();
     return redirect('/');
+  }
+
+  public function cartHistoryIndex(Request $request)
+  {
+    $page = $request->page != null ? $request->page : 1;
+    $userId = Auth::user()->id;
+    $billings = ShoppingCart::getCurrentUserOrders($userId);
+    $total = count($billings);
+    $billings = new LengthAwarePaginator(
+      array_slice($billings, ($page - 1) * 15, 15),
+      $total,
+      15,
+      $page,
+      [
+        'path' => $request->url(),
+      ]
+    );
+
+    return view('users.cartHistoryIndex', compact('billings', 'total'));
   }
 }
