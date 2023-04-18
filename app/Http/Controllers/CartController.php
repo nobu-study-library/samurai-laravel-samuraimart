@@ -99,7 +99,7 @@ class CartController extends Controller
           'price_total' => $priceTotal,
           'qty' => $qtyTotal,
           'buy_flag' => true,
-          'updated_at' => data('Y/m/d H:i:s'),
+          'updated_at' => date('Y/m/d H:i:s'),
         ]);
     }
 
